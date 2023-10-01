@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyk72hymy2bd3"]
+
+[ext_resource type="Texture2D" uid="uid://chtj7433auwud" path="res://img/laser_vertical.png" id="1_4davn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdsd3"]
+atlas = ExtResource("1_4davn")
+region = Rect2(0, 0, 64, 1980)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw5kn"]
+atlas = ExtResource("1_4davn")
+region = Rect2(64, 0, 64, 1980)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6e1n"]
+atlas = ExtResource("1_4davn")
+region = Rect2(128, 0, 64, 1980)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agfgu"]
+atlas = ExtResource("1_4davn")
+region = Rect2(192, 0, 64, 1980)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jgbtc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdsd3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw5kn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6e1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agfgu")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="LaserVertical" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_jgbtc")

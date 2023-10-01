@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci3syi2trtddc"]
+
+[ext_resource type="Texture2D" uid="uid://mf2ls82wwach" path="res://bosses/img/goliath.png" id="1_mnpho"]
+[ext_resource type="Script" path="res://bosses/boss.gd" id="2_qb1wg"]
+[ext_resource type="PackedScene" uid="uid://blmiw02u1nqn5" path="res://ui/hp_bar.tscn" id="3_hqndq"]
+
+[node name="Goliath" type="Sprite2D"]
+texture = ExtResource("1_mnpho")
+centered = false
+script = ExtResource("2_qb1wg")
+hp_max = 15
+
+[node name="HPBar" parent="." instance=ExtResource("3_hqndq")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 0.0
+grow_horizontal = 2

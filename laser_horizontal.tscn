@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://ghjdqm487t4n"]
+
+[ext_resource type="Texture2D" uid="uid://crtyp4urhathb" path="res://img/laser_horizontal.png" id="1_d3oia"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6jto"]
+atlas = ExtResource("1_d3oia")
+region = Rect2(0, 0, 1980, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrl16"]
+atlas = ExtResource("1_d3oia")
+region = Rect2(0, 64, 1980, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ui262"]
+atlas = ExtResource("1_d3oia")
+region = Rect2(0, 128, 1980, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syvk0"]
+atlas = ExtResource("1_d3oia")
+region = Rect2(0, 192, 1980, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h0c5l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6jto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrl16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui262")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_syvk0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="LaserHorizontal" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_h0c5l")

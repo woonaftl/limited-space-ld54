@@ -1,0 +1,481 @@
+[gd_scene load_steps=24 format=3 uid="uid://wxgisooh8qko"]
+
+[ext_resource type="Theme" uid="uid://m5ose0mat6lp" path="res://ui/theme.tres" id="1_d5v1a"]
+[ext_resource type="Script" path="res://game.gd" id="1_t532q"]
+[ext_resource type="Script" path="res://target.gd" id="2_sqvsc"]
+[ext_resource type="Script" path="res://fleet.gd" id="2_yp5pe"]
+[ext_resource type="Texture2D" uid="uid://br8r8jmqqbu6x" path="res://ui/img/sky.png" id="3_3higp"]
+[ext_resource type="Texture2D" uid="uid://giutbcgfs6qk" path="res://ui/img/target_rect.png" id="4_5vk4w"]
+[ext_resource type="Script" path="res://fleet_tile_map.gd" id="4_wy1fl"]
+[ext_resource type="Script" path="res://cursor.gd" id="5_o6tpa"]
+[ext_resource type="Texture2D" uid="uid://cqxfmoe74u5l8" path="res://ui/img/fleet_rect.png" id="6_ri7bn"]
+[ext_resource type="TileSet" uid="uid://bp7i8qbjck1w" path="res://ui/tile_set.tres" id="8_glra3"]
+[ext_resource type="Script" path="res://volume_slider.gd" id="10_ag3oh"]
+[ext_resource type="Script" path="res://about_dialog.gd" id="11_0g6uu"]
+[ext_resource type="AudioStream" uid="uid://qi7bnmscrqc0" path="res://audio/laserShoot.wav" id="12_ine7l"]
+[ext_resource type="AudioStream" uid="uid://cbjd75qpuy311" path="res://audio/explosion.wav" id="13_1j47w"]
+[ext_resource type="AudioStream" uid="uid://dvbbdn8il6vhv" path="res://audio/bossAppears.wav" id="14_b5adl"]
+[ext_resource type="AudioStream" uid="uid://dxpyoey5dunwb" path="res://audio/hitHurt.wav" id="14_wp1i3"]
+[ext_resource type="AudioStream" uid="uid://clhb11m2uoipf" path="res://audio/pickupCoin.wav" id="15_8tgc2"]
+[ext_resource type="AudioStream" uid="uid://bg6kmr8tuxwsl" path="res://audio/powerUp.wav" id="16_sqste"]
+[ext_resource type="AudioStream" uid="uid://d7hrfkqyse4g" path="res://audio/powerUpBig.wav" id="17_65dqe"]
+[ext_resource type="AudioStream" uid="uid://05wqs70kr6ru" path="res://audio/blipSelect.wav" id="18_vl3v5"]
+[ext_resource type="AudioStream" uid="uid://d21toy0v3m8fm" path="res://audio/click.wav" id="19_8hmy1"]
+[ext_resource type="AudioStream" uid="uid://ds0liamti3i56" path="res://audio/win.wav" id="22_xfoli"]
+[ext_resource type="AudioStream" uid="uid://bwdyspa6o5nna" path="res://audio/lose.wav" id="23_5adfm"]
+
+[node name="Game" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_d5v1a")
+script = ExtResource("1_t532q")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground"]
+modulate = Color(0.74902, 0.74902, 0.74902, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("3_3higp")
+centered = false
+
+[node name="ActionContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TargetNinePatchRect" type="NinePatchRect" parent="ActionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+texture = ExtResource("4_5vk4w")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionContainer/TargetNinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ActionContainer/TargetNinePatchRect/MarginContainer"]
+layout_mode = 2
+
+[node name="TargetLabel" type="Label" parent="ActionContainer/TargetNinePatchRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TARGET"
+
+[node name="Control" type="Control" parent="ActionContainer/TargetNinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Target" type="Node2D" parent="ActionContainer/TargetNinePatchRect/MarginContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+script = ExtResource("2_sqvsc")
+
+[node name="FleetNinePatchRect" type="NinePatchRect" parent="ActionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+texture = ExtResource("6_ri7bn")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionContainer/FleetNinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ActionContainer/FleetNinePatchRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ActionContainer/FleetNinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOUR FLEET"
+
+[node name="Control" type="Control" parent="ActionContainer/FleetNinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Fleet" type="Node2D" parent="ActionContainer/FleetNinePatchRect/MarginContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+script = ExtResource("2_yp5pe")
+
+[node name="FleetTileMap" type="TileMap" parent="ActionContainer/FleetNinePatchRect/MarginContainer/VBoxContainer/Control/Fleet"]
+unique_name_in_owner = true
+tile_set = ExtResource("8_glra3")
+format = 2
+script = ExtResource("4_wy1fl")
+
+[node name="Buttons" type="Control" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(384, 384)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -384.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="CreditsContainer" type="PanelContainer" parent="Buttons/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="CreditsLabel" type="Label" parent="Buttons/VBoxContainer/ButtonsContainer/CreditsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "CREDITS: XXX"
+horizontal_alignment = 1
+
+[node name="StoreContainer" type="PanelContainer" parent="Buttons/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons/VBoxContainer/ButtonsContainer/StoreContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Buttons/VBoxContainer/ButtonsContainer/StoreContainer/VBoxContainer"]
+layout_mode = 2
+text = "AVAILABLE SHIPS"
+horizontal_alignment = 1
+
+[node name="StoreItemList" type="ItemList" parent="Buttons/VBoxContainer/ButtonsContainer/StoreContainer/VBoxContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(384, 0)
+layout_mode = 2
+auto_height = true
+same_column_width = true
+fixed_icon_size = Vector2i(64, 64)
+
+[node name="SellShipButton" type="Button" parent="Buttons/VBoxContainer/ButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SELL SELECTED SHIP"
+
+[node name="RepairShipButton" type="Button" parent="Buttons/VBoxContainer/ButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "REPAIR SELECTED SHIP"
+
+[node name="ExpandXButton" type="Button" parent="Buttons/VBoxContainer/ButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "EXPAND HORIZONTALLY ($6)"
+
+[node name="ExpandYButton" type="Button" parent="Buttons/VBoxContainer/ButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "EXPAND VERTICALLY ($6)"
+
+[node name="RerollButton" type="Button" parent="Buttons/VBoxContainer/ButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "RESTOCK ($1)"
+
+[node name="EndTurnButton" type="Button" parent="Buttons/VBoxContainer/ButtonsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+text = "END TURN"
+
+[node name="Control" type="Label" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="Buttons/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "VOLUME:"
+horizontal_alignment = 1
+
+[node name="VolumeSlider" type="HSlider" parent="Buttons/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -30.0
+max_value = 0.0
+value = -10.0
+script = ExtResource("10_ag3oh")
+
+[node name="CreditsButton" type="Button" parent="Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+text = "ABOUT"
+
+[node name="Cursor" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(260, 326)
+centered = false
+script = ExtResource("5_o6tpa")
+
+[node name="GameOverDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+title = "GAME OVER"
+size = Vector2i(326, 100)
+ok_button_text = "TRY AGAIN"
+dialog_text = "All your ships are destroyed."
+
+[node name="AboutDialog" type="Window" parent="."]
+unique_name_in_owner = true
+title = "ABOUT"
+position = Vector2i(0, 36)
+size = Vector2i(1024, 600)
+visible = false
+wrap_controls = true
+transient = true
+exclusive = true
+unresizable = true
+min_size = Vector2i(1024, 600)
+max_size = Vector2i(1024, 600)
+script = ExtResource("11_0g6uu")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="AboutDialog"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Label" type="Label" parent="AboutDialog/ScrollContainer"]
+layout_mode = 2
+text = "Game created for Ludum Dare 54 Compo
+For more information, visit ldjam.com
+
+-----------------------------------------------------------
+
+Game by woona
+
+-----------------------------------------------------------
+
+THIS GAME USES:
+
+Godot Engine, available under MIT License
+
+Copyright (c) 2007-2023 Juan Linietsky, Ariel Manzur.
+Copyright (c) 2014-2023 Godot Engine contributors.
+
+-----------------------------------------------------------
+
+Pixeloid Font, available under SIL Open Font License, Version 1.1.
+
+Copyright © 2020-2021 GGBot (https://ggbot.net/fonts/),
+with Reserved Font Name \"Pixeloid\".
+
+-----------------------------------------------------------
+MIT License
+-----------------------------------------------------------
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+\"Font Software\" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+\"Reserved Font Name\" refers to any names specified as such after the
+copyright statement(s).
+
+\"Original Version\" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+\"Modified Version\" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+\"Author\" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+"
+
+[node name="AudioLaserShoot" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("12_ine7l")
+volume_db = -10.0
+
+[node name="AudioExplosion" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("13_1j47w")
+
+[node name="AudioBossAttack" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("13_1j47w")
+
+[node name="AudioBossAppears" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("14_b5adl")
+
+[node name="AudioHitHurt" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("14_wp1i3")
+
+[node name="AudioPickupCoin" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("15_8tgc2")
+volume_db = -5.0
+
+[node name="AudioPowerUp" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("16_sqste")
+volume_db = -5.0
+
+[node name="AudioPowerUpBig" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("17_65dqe")
+
+[node name="AudioBlipSelect" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("18_vl3v5")
+
+[node name="AudioClick" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("19_8hmy1")
+
+[node name="AudioWin" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("22_xfoli")
+
+[node name="AudioLose" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("23_5adfm")
+
+[connection signal="mouse_entered" from="ActionContainer/FleetNinePatchRect" to="." method="_on_fleet_nine_patch_rect_mouse_entered"]
+[connection signal="mouse_exited" from="ActionContainer/FleetNinePatchRect" to="." method="_on_fleet_nine_patch_rect_mouse_exited"]
+[connection signal="item_selected" from="Buttons/VBoxContainer/ButtonsContainer/StoreContainer/VBoxContainer/StoreItemList" to="." method="_on_store_item_list_item_selected"]
+[connection signal="pressed" from="Buttons/VBoxContainer/ButtonsContainer/SellShipButton" to="." method="_on_sell_ship_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/ButtonsContainer/RepairShipButton" to="." method="_on_repair_ship_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/ButtonsContainer/ExpandXButton" to="." method="_on_expand_x_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/ButtonsContainer/ExpandYButton" to="." method="_on_expand_y_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/ButtonsContainer/RerollButton" to="." method="_on_reroll_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/ButtonsContainer/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="value_changed" from="Buttons/VBoxContainer/HBoxContainer/VolumeSlider" to="Buttons/VBoxContainer/HBoxContainer/VolumeSlider" method="_on_value_changed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="canceled" from="GameOverDialog" to="." method="_on_game_over_dialog_confirmed"]
+[connection signal="confirmed" from="GameOverDialog" to="." method="_on_game_over_dialog_confirmed"]
+[connection signal="close_requested" from="AboutDialog" to="AboutDialog" method="_on_close_requested"]

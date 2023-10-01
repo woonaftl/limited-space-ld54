@@ -1,0 +1,106 @@
+[gd_scene load_steps=14 format=3 uid="uid://45r11sllnnjx"]
+
+[ext_resource type="Script" path="res://ships/ship.gd" id="1_8pav7"]
+[ext_resource type="Texture2D" uid="uid://ddddwcl0xe3hm" path="res://ships/img/destroyer.png" id="2_okar8"]
+[ext_resource type="PackedScene" uid="uid://blmiw02u1nqn5" path="res://ui/hp_bar.tscn" id="3_qls0b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a23fd"]
+atlas = ExtResource("2_okar8")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltfun"]
+atlas = ExtResource("2_okar8")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15xdi"]
+atlas = ExtResource("2_okar8")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8qxj"]
+atlas = ExtResource("2_okar8")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2e8ag"]
+atlas = ExtResource("2_okar8")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5566"]
+atlas = ExtResource("2_okar8")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cje23"]
+atlas = ExtResource("2_okar8")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifvwq"]
+atlas = ExtResource("2_okar8")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cvxl"]
+atlas = ExtResource("2_okar8")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iybpo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a23fd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltfun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15xdi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8qxj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2e8ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5566")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cje23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifvwq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cvxl")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 30.0
+}]
+
+[node name="Destroyer" type="Area2D"]
+script = ExtResource("1_8pav7")
+dimensions = Vector2(128, 128)
+dmg = 4
+hp_max = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iybpo")
+animation = &"shoot"
+autoplay = "default"
+centered = false
+
+[node name="HPBar" parent="AnimatedSprite2D" instance=ExtResource("3_qls0b")]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 0.0
+grow_horizontal = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(30, 6.2, 40, 17.2, 40, 44.2, 39.5, 46, 42.1, 46, 57.2, 32, 72, 32, 72, 34, 88, 47, 88, 52.7, 82, 59.7, 82, 64.9, 92, 58.9, 92, 55.4, 88, 44.4, 88, 16, 90, 16, 99, 4, 108, 4, 108, 6.3, 116, 15.2, 116, 22.6, 122, 39.7, 122, 48.7, 126, 61.7, 126, 88, 124.5, 88, 119.5, 104, 117.9, 104, 102.9, 120, 81.7, 120, 72.8, 128, 54, 128, 54, 126, 46.3, 120, 25.4, 120, 18, 115.1, 18, 113.8, 8, 102.8, 8, 99.4, 2, 86.4, 2, 60, 3.3, 60, 12.4, 14, 14, 14, 20, 6.3, 20, 4, 30, 4)
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

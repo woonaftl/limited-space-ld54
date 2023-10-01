@@ -1,0 +1,105 @@
+[gd_scene load_steps=14 format=3 uid="uid://bmwsp6y25qs82"]
+
+[ext_resource type="Script" path="res://ships/ship.gd" id="1_bo3if"]
+[ext_resource type="Texture2D" uid="uid://chujhn81dgu73" path="res://ships/img/assault.png" id="2_2c7f3"]
+[ext_resource type="PackedScene" uid="uid://blmiw02u1nqn5" path="res://ui/hp_bar.tscn" id="3_digqt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsdmc"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uq5o"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(192, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab6d6"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(384, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_078ev"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(576, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej2qi"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(768, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ava5k"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(960, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv4dh"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(1152, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2ir6"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(1344, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slos6"]
+atlas = ExtResource("2_2c7f3")
+region = Rect2(1536, 0, 192, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_buc1e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vsdmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6uq5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab6d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_078ev")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej2qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ava5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv4dh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2ir6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slos6")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 30.0
+}]
+
+[node name="Assault" type="Area2D"]
+script = ExtResource("1_bo3if")
+dimensions = Vector2(192, 128)
+dmg = 2
+hp_max = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_buc1e")
+autoplay = "default"
+centered = false
+
+[node name="HPBar" parent="AnimatedSprite2D" instance=ExtResource("3_digqt")]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 0.0
+grow_horizontal = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(18, 2.1, 34, 17.1, 34, 22, 38.3, 22, 42, 23.2, 42, 19.4, 39.6, 6, 42.1, 6, 47.1, 0, 62, 0, 62, 1.8, 72, 6.8, 72, 22, 89.1, 4, 104, 4, 104, 6.3, 115.9, 20, 118.7, 20, 120, 21, 120, 6.9, 131.4, 0, 146, 0, 146, 2.1, 152, 7.1, 152, 18.2, 150.5, 24, 151, 23.5, 158, 21.5, 158, 17.2, 175.2, 0, 186, 0, 186, 2.4, 192, 11.4, 192, 42, 190.9, 42, 189.9, 56, 187.9, 56, 182.9, 62, 171.4, 62, 162.4, 56, 155.2, 56, 143, 59.5, 138.8, 64, 123.3, 64, 121.2, 62.4, 120.6, 63.8, 128, 77.5, 128, 110, 125.9, 110, 118.9, 118, 115.5, 118, 102.6, 126, 88, 126, 88, 124.3, 72, 117.3, 72, 115.9, 64, 108.9, 64, 77.4, 72, 64.5, 72, 61.8, 71.2, 61, 69.1, 64, 52, 64, 52, 62.1, 44.5, 58, 37.8, 58, 30.6, 56.4, 20.5, 62, 8, 62, 8, 59.9, 2, 54.9, 2, 41, 0, 11.4, 0, 10, 1.3, 10, 2.3, 4, 4.2, 4, 6, 2.2, 6, 0, 18, 0)
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

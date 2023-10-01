@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqe3mda1vliub"]
+
+[ext_resource type="Texture2D" uid="uid://cf0hr41ug8ljs" path="res://bosses/img/dreadnought.png" id="1_3p6yk"]
+[ext_resource type="Script" path="res://bosses/boss.gd" id="1_07xft"]
+[ext_resource type="PackedScene" uid="uid://blmiw02u1nqn5" path="res://ui/hp_bar.tscn" id="3_b2kh2"]
+
+[node name="Dreadnought" type="Sprite2D"]
+texture = ExtResource("1_3p6yk")
+centered = false
+script = ExtResource("1_07xft")
+hp_max = 25
+
+[node name="HPBar" parent="." instance=ExtResource("3_b2kh2")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 0.0
+grow_horizontal = 2

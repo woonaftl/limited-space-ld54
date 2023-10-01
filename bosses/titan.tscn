@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqqot3h7m60sc"]
+
+[ext_resource type="Texture2D" uid="uid://du2if0h1hqmdg" path="res://bosses/img/titan.png" id="1_coy84"]
+[ext_resource type="Script" path="res://bosses/boss.gd" id="1_tor60"]
+[ext_resource type="PackedScene" uid="uid://blmiw02u1nqn5" path="res://ui/hp_bar.tscn" id="3_u7itu"]
+
+[node name="Titan" type="Sprite2D"]
+texture = ExtResource("1_coy84")
+centered = false
+script = ExtResource("1_tor60")
+hp_max = 35
+
+[node name="HPBar" parent="." instance=ExtResource("3_u7itu")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 0.0
+grow_horizontal = 2

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dffbl0pk0ik25"]
+
+[ext_resource type="Texture2D" uid="uid://tnvokt8sy358" path="res://bosses/img/behemoth.png" id="1_53w6v"]
+[ext_resource type="Script" path="res://bosses/boss.gd" id="1_yjed3"]
+[ext_resource type="PackedScene" uid="uid://blmiw02u1nqn5" path="res://ui/hp_bar.tscn" id="3_xu7by"]
+
+[node name="Behemoth" type="Sprite2D"]
+texture = ExtResource("1_53w6v")
+centered = false
+script = ExtResource("1_yjed3")
+hp_max = 30
+
+[node name="HPBar" parent="." instance=ExtResource("3_xu7by")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 0.0
+grow_horizontal = 2
